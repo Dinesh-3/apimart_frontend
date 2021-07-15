@@ -10,7 +10,7 @@ import {
 
 import SignIn from "./SignIn/SignIn";
 import SignUp from "./SignUp/SignUp";
-
+import Home from "./Home/home";
 // import ForgotPassword from "./customer/Pages/ForgotPassword/ForgotPassword";
 // import ResetPassword from "./customer/Pages/ResetPassword/ResetPassword";
 
@@ -23,6 +23,7 @@ function App() {
             
             <Route path="/SignIn" component={SignIn} />
             <Route path="/SignUp" component={ SignUp } />
+            <Route path="/Home" component={Home}/>
             {/* <Route path="/ForgotPassword" component={ForgotPassword} />
             <Route path="/ResetPassword" component={ResetPassword} />
              */}

@@ -2,37 +2,29 @@ import React, { useState } from "react";
 import classes from './SignIn.module.css';
 import { Link, useHistory} from "react-router-dom";
 
-import axios from 'axios';
+import { useAuth } from "../context/AuthContext";
 
 function SignIn() {
-    const [signinDetails, setsigninDetails] = useState({
+  
+    const [form, setForm] = useState({
         email: "",
         password: "",
       });
 
       let history = useHistory();
+      const { login } = useAuth();
 
       const onChangeHandler = (e) => {
-        let user = signinDetails;
-        user[e.target.name] = e.target.value;
-        setsigninDetails(user);
+        setForm(prev => ({...prev, [e.target.name]: e.target.value}))
       };
     
       const onSubmitHandler = async (e) => {
         e.preventDefault();
-        axios.post(`http://localhost:8080/api/v1/user/login`,  signinDetails )
-      .then(res => {
-        console.log(res);
-        
-        // if(res.data.validation==="true")
-        // {
-        //   console.log(res.data.validation);
-        //   localStorage.setItem('userDetails', JSON.stringify(res.data));
-        //   history.push('/profile')
-          
-        // }
-      })
-        return;        
+        await login(form);
+        setForm({
+					email: '',
+					password: '',
+				});        
       }
     
   return (
@@ -63,7 +55,7 @@ function SignIn() {
                 Forgot Password ?
               </Link>
               <br></br>
-              <Link to="/SignUp" className={classes.BottomLinks} style={{color:"black"}}>
+              <Link to="/signup" className={classes.BottomLinks} style={{color:"black"}}>
                 New User ?
               </Link>
             </div>

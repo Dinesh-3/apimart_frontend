@@ -1,43 +1,39 @@
 import React, { useState } from "react";
 import classes from './SignUp.module.css';
-import { Link, useHistory} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import axios from 'axios';
+import { HttpRequest } from "../services/HttpRequest";
+import history from "../services/history";
 
 function SignUp() {
-  const [signupDetails, setsignupDetails] = useState({
+  const [form, setForm] = useState({
     name: "",
     email: "",
     password: "",
-    
-    
-
   });
-  
-  let history = useHistory();
 
   const onChangeHandler = (e) => {
-    let user = signupDetails;
+    let user = form;
     user[e.target.name] = e.target.value;
-    setsignupDetails(user);
+    setForm(user);
   };
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    axios.post(`http://localhost:8080/api/v1/user/signup`, signupDetails )
-      .then(res => {
-        console.log(res);
-       
-        if(res.data.status===true)
-        {
-          history.push('/SignIn')
-        }
-        // else
-        // {
-        //   alert("Account exist with this email.");
-        // }
-      })
-    return;        
+    const requestObj = {
+			path: '/user/signup',
+			method: 'POST',
+			body: form,
+		};
+
+    const response = await HttpRequest(requestObj);
+
+    if(response.data === true) history.push('/login');
+    setForm({
+			name: '',
+			email: '',
+			password: '',
+		});   
   }
     return (
       <div className={classes.SignUp}>
@@ -74,7 +70,7 @@ function SignUp() {
               <input type="submit" value="SUBMIT" />
               <br></br><br></br>
               <div className={classes.bottomLinkWrapper}>
-              <Link to="/SignIn" className={classes.BottomLinks} style={{color:"black"}}>
+              <Link to="/login" className={classes.BottomLinks} style={{color:"black"}}>
                 Have an account ?
               </Link>
             </div>

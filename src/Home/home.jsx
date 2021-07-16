@@ -1,11 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-// import { Link } from "react-router-dom";
-// import { useHistory} from "react-router-dom";
-// import axios from 'axios';
-function Home() {
+import { API_ENDPOINT } from '../services/Constant';
+import { copyToClipboard } from '../services/helpers';
+import { HttpRequest } from '../services/HttpRequest';
 
-  const { logout } = useAuth();
+import "./home.css";
+
+function Home() {
+  const { logout, useUser } = useAuth();
+  const [user, setUser] = useUser();
+  const [table, setTable] = useState([{fileName: "", user: ""}]);
+
+  useEffect(() => {
+    const getTableRequest = async () => {
+      const requestObj = {
+				path: '/collection/get',
+				method: 'GET',
+			};
+
+      const response = await HttpRequest(requestObj);
+      if(response.status === true) {
+        setTable(response.data);
+      }
+    }
+    getTableRequest();
+  }, [])
+
+
   const handleLogout = (e) => {
     logout();
   };
@@ -16,20 +37,25 @@ function Home() {
 				<div class='collapse navbar-collapse' id='navbarNav'>
 					<ul class='navbar-nav'>
 						<li class='nav-item active'>
-							<button type='button' class='btn  btn-secondary' style={{ marginLeft: '530px' }}>
-								<a href='#' style={{ textDecoration: 'none', color: 'white' }}>
-									UPLOAD FILES
+							<button type='button' class='btn  btn-secondary' style={{marginLeft: '530px'}}>
+								<a href='#' style={{textDecoration: 'none', color: 'white'}}>
+									Available API's
 								</a>
 							</button>
 						</li>
 						<li class='nav-item'>
-							<a class='nav-link' href='#' style={{ marginLeft: '400px' }}>
-								Name
+							<a class='nav-link' href='#' style={{marginLeft: '400px'}}>
+								{user.name}
 							</a>
 						</li>
 						<li class='nav-item'>
-							<button type='button' class='btn btn-secondary' style={{ marginLeft: '30px' }} onClick={handleLogout}>
-									LOG-OUT
+							<button
+								type='button'
+								class='btn btn-secondary'
+								style={{marginLeft: '30px'}}
+								onClick={handleLogout}
+							>
+								LOG-OUT
 							</button>
 						</li>
 					</ul>
@@ -43,23 +69,31 @@ function Home() {
 							<th scope='col'>#</th>
 							<th scope='col'>File Name</th>
 							<th scope='col'>Endpoint</th>
+							<th scope='col'>Copy Link</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<th scope='row'>1</th>
-							<td>Mark</td>
-							<td>
-								<a href='#'>Otto</a>
-							</td>
-						</tr>
-						<tr>
-							<th scope='row'>2</th>
-							<td>Jacob</td>
-							<td>
-								<a href='#'>Thornton</a>
-							</td>
-						</tr>
+						{table.map((item, index) => (
+							<tr>
+								<th scope='row'>{index + 1}</th>
+								<td>{item.user}</td>
+								<td>
+									<a
+										href={`${API_ENDPOINT}collection/${item.user}/${item.fileName}`}
+										target='_blank'
+									>{`${item.user}/${item.fileName}`}</a>
+								</td>
+								<td>
+									<i
+										class='bx bxs-copy bx-sm'
+										style={{color: 'black', cursor: 'pointer'}}
+										onClick={() =>
+											copyToClipboard(`${API_ENDPOINT}collection/${item.user}/${item.fileName}`)
+										}
+									></i>
+								</td>
+							</tr>
+						))}
 					</tbody>
 				</table>
 			</div>

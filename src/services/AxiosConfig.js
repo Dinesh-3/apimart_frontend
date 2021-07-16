@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { getUserToken } from './AuthService';
 import { logout } from './AuthService';
+import { API_ENDPOINT } from './Constant';
 
-axios.defaults.baseURL = 'http://localhost:8080/api/v1/';
+axios.defaults.baseURL = API_ENDPOINT;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 axios.interceptors.request.use(function (config) {

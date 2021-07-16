@@ -24,8 +24,8 @@ const AuthProvider = (props) => {
 
 		const getUserDetailRequest = async () => {
 			const requestObj = {
-				path: '/user',
-				method: 'GET'
+				path: '/user/get',
+				method: 'GET',
 			};
 			const res = await HttpRequest(requestObj);
 

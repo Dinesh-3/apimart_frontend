@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect } from 'react';
 import { useLocalStorage } from '../hooks/Hooks';
 import { HttpRequest } from '../services/HttpRequest';
 import history from '../services/history';
+import { message } from 'antd';
 
 const AuthContext = createContext({
 	useUser: () => {},
@@ -47,10 +48,11 @@ const AuthProvider = (props) => {
 		if (res['status'] === true) {
 			setToken(res.data.token);
 			setUser(res.data.user);
+      message.success("Login Success")
 			history.push('/');
 			return;
 		}
-    alert("Invalid credential Try again")
+    message.error("Invalid Credentials Try again")
 	};
 
 	const logout = () => {

@@ -1,15 +1,24 @@
+import Icon from '@ant-design/icons/lib/components/Icon';
+import {Button, message, Row, Upload, Form, Select, Typography} from 'antd';
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '../context/AuthContext';
-import { API_ENDPOINT } from '../services/Constant';
-import { copyToClipboard } from '../services/helpers';
-import { HttpRequest } from '../services/HttpRequest';
+import { FileUpload } from '../UploadFile/UploadFile';
+import { useAuth } from '../../context/AuthContext';
+import { API_ENDPOINT } from '../../services/Constant';
+import { copyToClipboard } from '../../services/helpers';
+import { HttpRequest } from '../../services/HttpRequest';
 
 import "./home.css";
+const { Item } = Form;
+const {Option} = Select;
+
+const {Text, Title} = Typography;
 
 function Home() {
   const { logout, useUser } = useAuth();
   const [user, setUser] = useUser();
   const [table, setTable] = useState([{fileName: "", user: ""}]);
+  const [fileLoading, setFileLoading] = useState(false);
+  const [file, setFile] = useState();
 
   useEffect(() => {
     const getTableRequest = async () => {
@@ -38,9 +47,7 @@ function Home() {
 					<ul class='navbar-nav'>
 						<li class='nav-item active'>
 							<button type='button' class='btn  btn-secondary' style={{marginLeft: '530px'}}>
-								<a href='#' style={{textDecoration: 'none', color: 'white'}}>
-									Available API's
-								</a>
+								Available API's
 							</button>
 						</li>
 						<li class='nav-item'>
@@ -62,6 +69,7 @@ function Home() {
 				</div>
 			</nav>
 			<br />
+      <FileUpload />
 			<div className='container'>
 				<table class='table table-bordered'>
 					<thead>
@@ -76,7 +84,7 @@ function Home() {
 						{table.map((item, index) => (
 							<tr>
 								<th scope='row'>{index + 1}</th>
-								<td>{item.user}</td>
+								<td>{item.fileName}</td>
 								<td>
 									<a
 										href={`${API_ENDPOINT}collection/${item.user}/${item.fileName}`}

@@ -1,3 +1,3 @@
-const API_ENDPOINT = 'http://localhost:8080/api/v1/';
+const API_ENDPOINT = 'http://localhost:5000/api/v1/';
 
 export { API_ENDPOINT };

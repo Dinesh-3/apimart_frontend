@@ -1,6 +1,8 @@
+import { message } from "antd";
+
 const copyToClipboard = async (text) => {
 	await navigator.clipboard.writeText(text);
-	alert('Link Copied');
+  message.success("Link Copied")
 };
 
 

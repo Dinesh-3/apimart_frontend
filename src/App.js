@@ -1,5 +1,7 @@
 import React from "react";
 import './App.css';
+import 'antd/dist/antd.css';
+
 import {
   Switch,
   Route,
@@ -10,9 +12,9 @@ import {
 import AuthProvider from "./context/AuthContext";
 import history from "./services/history";
 
-import SignIn from "./SignIn/SignIn";
-import SignUp from "./SignUp/SignUp";
-import Home from "./Home/home";
+import Login from "./components/Login/Login";
+import SignUp from "./components/SignUp/SignUp";
+import Home from "./components/Home/home";
 import { PrivateRoute } from "./services/ProtectedRoute";
 // import ForgotPassword from "./customer/Pages/ForgotPassword/ForgotPassword";
 // import ResetPassword from "./customer/Pages/ResetPassword/ResetPassword";
@@ -24,7 +26,7 @@ function App() {
 				<Switch>
 					<PrivateRoute path='/' exact component={Home} />
 					<Route path='/signup' exact component={SignUp} />
-					<Route path='/login' exact component={SignIn} />
+					<Route path='/login' exact component={Login} />
 					{/* <Route path="/ForgotPassword" component={ForgotPassword} />
             <Route path="/ResetPassword" component={ResetPassword} />
              */}

@@ -114,27 +114,3 @@ nav.nav-container {
 .ant-drawer-body .ant-menu-horizontal>.ant-menu-item:hover {
   border-bottom-color: transparent;
 }
-
-@media (max-width: 767px) {
-  .barsMenu {
-    display: inline-block;
-  }
-
-  .leftMenu,
-  .rightMenu {
-    display: none;
-  }
-
-  .logo a {
-    margin-left: -20px;
-  }
-
-  .menuCon .ant-menu-item,
-  .menuCon .ant-menu-submenu-title {
-    padding: 1px 20px;
-  }
-
-  .logo a {
-    padding: 10px 20px;
-  }
-}

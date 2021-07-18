@@ -35,7 +35,7 @@ const FileUpload = (props) => {
 
 	return (
 		<div className='upload-container'>
-			<Space size={15} style={{alignItems: "flex-start"}}>
+			<Space size={15} style={{ alignItems: 'flex-start' }}>
 				<Upload
 					onRemove={(file) => {
 						setFileList([]);
@@ -52,6 +52,7 @@ const FileUpload = (props) => {
 					fileList={fileList}
 					maxCount={1}
 					accept='.csv,.xlsx,.xls'
+					disabled={uploading}
 				>
 					<Button icon={<UploadOutlined />}>Select File</Button>
 				</Upload>

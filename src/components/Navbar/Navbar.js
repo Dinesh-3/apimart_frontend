@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import LeftMenu from './LeftMenu';
 import RightMenu from './RightMenu';
 import { Drawer, Button } from 'antd';
@@ -6,24 +6,18 @@ import { Drawer, Button } from 'antd';
 import "./Navbar.css";
 import { Link } from 'react-router-dom';
 
-class Navbar extends Component {
-	state = {
-		current: 'mail',
-		visible: false,
-	};
-	showDrawer = () => {
-		this.setState({
-			visible: true,
-		});
+const Navbar = () => {
+  const [ current, setCurrent ] = useState('mail');
+  const [ visible, setVisible ] = useState(false);
+
+	const showDrawer = () => {
+		setVisible(true);
 	};
 
-	onClose = () => {
-		this.setState({
-			visible: false,
-		});
+	const onClose = () => {
+		setVisible(false);
 	};
 
-	render() {
 		return (
 			<div className="menuBar">
 				<nav className='nav-container'>
@@ -37,15 +31,15 @@ class Navbar extends Component {
 						<div className='rightMenu'>
 							<RightMenu />
 						</div>
-						<Button className='barsMenu' type='primary' onClick={this.showDrawer}>
+						<Button className='barsMenu' type='primary' onClick={() => showDrawer()}>
 							<span className='barsBtn'></span>
 						</Button>
 						<Drawer
 							title='Basic Drawer'
 							placement='right'
 							closable={false}
-							onClose={this.onClose}
-							visible={this.state.visible}
+							onClose={() => onClose()}
+							visible={visible}
 						>
 							<LeftMenu />
 							<RightMenu />
@@ -54,7 +48,6 @@ class Navbar extends Component {
 				</nav>
 			</div>
 		);
-	}
 }
 
 export default Navbar;

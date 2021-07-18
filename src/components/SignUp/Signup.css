@@ -2,3 +2,13 @@
   width: 20rem;
   margin: 5rem auto;
 }
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.signup-form > * {
+  width: 100%;
+}

@@ -6,6 +6,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useState } from 'react';
 import { HttpRequest } from '../../services/HttpRequest';
 import history from '../../services/history';
+import { Link } from 'react-router-dom';
 
 const Signup = () => {
 	const [isLoading, setIsLoading] = useState(false);
@@ -28,13 +29,13 @@ const Signup = () => {
 
 	return (
 		<Card className='form-container'>
-			<Form name='normal_login' className='login-form' onFinish={onFinish}>
+			<Form name='normal_login' className='signup-form' onFinish={onFinish}>
 				<Form.Item
 					name='name'
 					rules={[
 						{
-							pattern: '^[A-Z][a-z]{4,}$',
-							message: 'First Letter Caps minimum 5 characters',
+							pattern: '^[a-zA-Z0-9]{5,}$',
+							message: 'Minimum 5 characters',
 						},
 						{
 							required: true,
@@ -42,7 +43,11 @@ const Signup = () => {
 						},
 					]}
 				>
-					<Input prefix={<UserOutlined className='site-form-item-icon' />} placeholder='Username' />
+					<Input
+						prefix={<UserOutlined className='site-form-item-icon' />}
+						size='large'
+						placeholder='Username'
+					/>
 				</Form.Item>
 				<Form.Item
 					name='email'
@@ -57,7 +62,11 @@ const Signup = () => {
 						},
 					]}
 				>
-					<Input prefix={<MailOutlined className='site-form-item-icon' />} placeholder='Email' />
+					<Input
+						prefix={<MailOutlined className='site-form-item-icon' />}
+						size='large'
+						placeholder='Email'
+					/>
 				</Form.Item>
 				<Form.Item
 					name='password'
@@ -72,7 +81,7 @@ const Signup = () => {
 						},
 					]}
 				>
-					<Input.Password prefix={<LockOutlined className='site-form-item-icon' />} />
+					<Input.Password size='large'  prefix={<LockOutlined className='site-form-item-icon' />} />
 				</Form.Item>
 				{/* <Form.Item>
 					<Form.Item name='remember' valuePropName='checked' noStyle>
@@ -94,6 +103,9 @@ const Signup = () => {
 						Signup
 					</Button>
 				</Form.Item>
+        <div>
+          Already have an account ? <Link to="/login"> Login</Link>
+        </div>
 			</Form>
 		</Card>
 	);

@@ -1,6 +1,6 @@
 import Icon from '@ant-design/icons/lib/components/Icon';
 import {Button, message, Row, Upload, Form, Select, Typography} from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { FileUpload } from '../UploadFile/UploadFile';
 import { useAuth } from '../../context/AuthContext';
 import { API_ENDPOINT } from '../../services/Constant';
@@ -8,22 +8,23 @@ import { copyToClipboard } from '../../services/helpers';
 import { HttpRequest } from '../../services/HttpRequest';
 
 import "./home.css";
+import Navbar from '../Navbar/Navbar';
+import ApiTable from '../ApiTable/ApiTable';
 const { Item } = Form;
 const {Option} = Select;
 
 const {Text, Title} = Typography;
 
 function Home() {
-  const { logout, useUser } = useAuth();
-  const [user, setUser] = useUser();
-  const [table, setTable] = useState([{fileName: "", user: ""}]);
-  const [fileLoading, setFileLoading] = useState(false);
-  const [file, setFile] = useState();
+
+  const [table, setTable] = useState([]);
+  const [tableLoading, setTableLoading] = useState(false);
 
   useEffect(() => {
     const getTableRequest = async () => {
+      setTableLoading(true);
       const requestObj = {
-				path: '/collection/get',
+				path: '/collection',
 				method: 'GET',
 			};
 
@@ -31,81 +32,37 @@ function Home() {
       if(response.status === true) {
         setTable(response.data);
       }
+      setTableLoading(false);
     }
     getTableRequest();
   }, [])
 
+  const setTableForUpload = (record) => {
+    setTable(prev => ([...prev, record]));
+  }
 
-  const handleLogout = (e) => {
-    logout();
-  };
+  const deleteRecord = async (record) => {
+    setTableLoading(true);
+		const requestObj = {
+			path: `/collection/${record.fileName}`,
+			method: 'DELETE',
+		};
+
+		const response = await HttpRequest(requestObj);
+    setTableLoading(false);
+		if (!response.status) return message.error(response.message);
+    setTable((prev) => prev.filter((item) => item.fileName !== record.fileName));
+    message.success(response.message);
+	};
 
 	return (
-		<div className='upload'>
-			<nav class='navbar navbar-expand-lg navbar-light bg-light'>
-				<div class='collapse navbar-collapse' id='navbarNav'>
-					<ul class='navbar-nav'>
-						<li class='nav-item active'>
-							<button type='button' class='btn  btn-secondary' style={{marginLeft: '530px'}}>
-								Available API's
-							</button>
-						</li>
-						<li class='nav-item'>
-							<a class='nav-link' href='#' style={{marginLeft: '400px'}}>
-								{user.name}
-							</a>
-						</li>
-						<li class='nav-item'>
-							<button
-								type='button'
-								class='btn btn-secondary'
-								style={{marginLeft: '30px'}}
-								onClick={handleLogout}
-							>
-								LOG-OUT
-							</button>
-						</li>
-					</ul>
-				</div>
-			</nav>
-			<br />
-      <FileUpload />
-			<div className='container'>
-				<table class='table table-bordered'>
-					<thead>
-						<tr>
-							<th scope='col'>#</th>
-							<th scope='col'>File Name</th>
-							<th scope='col'>Endpoint</th>
-							<th scope='col'>Copy Link</th>
-						</tr>
-					</thead>
-					<tbody>
-						{table.map((item, index) => (
-							<tr>
-								<th scope='row'>{index + 1}</th>
-								<td>{item.fileName}</td>
-								<td>
-									<a
-										href={`${API_ENDPOINT}collection/${item.user}/${item.fileName}`}
-										target='_blank'
-									>{`${item.user}/${item.fileName}`}</a>
-								</td>
-								<td>
-									<i
-										class='bx bxs-copy bx-sm'
-										style={{color: 'black', cursor: 'pointer'}}
-										onClick={() =>
-											copyToClipboard(`${API_ENDPOINT}collection/${item.user}/${item.fileName}`)
-										}
-									></i>
-								</td>
-							</tr>
-						))}
-					</tbody>
-				</table>
+		<Fragment>
+			<Navbar />
+			<div className='home-container'>
+				<FileUpload setTableForUpload={setTableForUpload} />
+				<ApiTable tableLoading={tableLoading} dataSource={table} deleteRecord={deleteRecord} />
 			</div>
-		</div>
+		</Fragment>
 	);
 }
 

@@ -1,0 +1,6 @@
+.action-container {
+  padding: 0 1rem;
+  display: flex;
+  gap: 5rem;
+  align-items: center;
+}

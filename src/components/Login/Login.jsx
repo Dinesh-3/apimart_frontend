@@ -4,6 +4,7 @@ import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
 import "./Login.css";
 import { useAuth } from '../../context/AuthContext';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
 
@@ -33,7 +34,7 @@ const Login = () => {
 						},
 					]}
 				>
-					<Input prefix={<MailOutlined />} placeholder='Email' />
+					<Input prefix={<MailOutlined />} placeholder='Email' size='large' />
 				</Form.Item>
 				<Form.Item
 					name='password'
@@ -48,7 +49,7 @@ const Login = () => {
 						},
 					]}
 				>
-					<Input.Password prefix={<LockOutlined className='site-form-item-icon' />} />
+					<Input.Password prefix={<LockOutlined className='site-form-item-icon' size='large' />} />
 				</Form.Item>
 				{/* <Form.Item>
 					<Form.Item name='remember' valuePropName='checked' noStyle>
@@ -70,6 +71,10 @@ const Login = () => {
 						Log in
 					</Button>
 				</Form.Item>
+				<div>
+          Don't have an account ? 
+					<Link to='/signup'> Signup</Link>
+				</div>
 			</Form>
 		</Card>
 	);

@@ -1,0 +1,7 @@
+.upload-container {
+  padding: 1rem;
+  margin: 2rem 0rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}

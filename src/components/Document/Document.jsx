@@ -1,15 +1,19 @@
 import React from 'react';
-import { PageHeader } from 'react-bootstrap';
+import { PageHeader } from 'antd';
+import history from '../../services/history';
+
+import "./Document.css";
 
 const Document = () => {
 	return (
-		<div>
+		<div className="doc-container">
 			<PageHeader
 				className='site-page-header'
-				onBack={() => window.history.back()}
+				onBack={() => history.push("/")}
 				title='Docs'
 				subTitle=''
 			></PageHeader>
+
 		</div>
 	);
 };

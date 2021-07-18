@@ -16,6 +16,7 @@ import Login from "./components/Login/Login";
 import SignUp from "./components/SignUp/SignUp";
 import Home from "./components/Home/home";
 import { PrivateRoute } from "./services/ProtectedRoute";
+import Document from "./components/Document/Document";
 // import ForgotPassword from "./customer/Pages/ForgotPassword/ForgotPassword";
 // import ResetPassword from "./customer/Pages/ResetPassword/ResetPassword";
 
@@ -27,10 +28,12 @@ function App() {
 					<PrivateRoute path='/' exact component={Home} />
 					<Route path='/signup' exact component={SignUp} />
 					<Route path='/login' exact component={Login} />
+					<Route path='/docs' exact component={Document} />
+
 					{/* <Route path="/ForgotPassword" component={ForgotPassword} />
             <Route path="/ResetPassword" component={ResetPassword} />
              */}
-					{/* <Redirect to='/'></Redirect> */}
+					<Redirect to='/'></Redirect>
 				</Switch>
 			</Router>
 		</AuthProvider>

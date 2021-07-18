@@ -10,10 +10,11 @@ const LeftMenu = () => {
 	const { md } = useBreakpoint();
 	return (
 		<Menu mode={md ? 'horizontal' : 'inline'}>
-			<Menu.Item key='mail' >
-				<Link to={"/"} >
-          Home
-        </Link>
+			<Menu.Item key='mail'>
+				<Link to={'/'}>Home</Link>
+			</Menu.Item>
+			<Menu.Item key='docs'>
+				<Link to={'/docs'}>Documentation</Link>
 			</Menu.Item>
 			{/* <SubMenu key='sub1' title={<span>Blogs</span>}>
 				<MenuItemGroup title='Item 1'>

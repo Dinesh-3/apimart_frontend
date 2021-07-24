@@ -14,7 +14,6 @@ const Signup = () => {
 	const onFinish = async (values) => {
     
 		setIsLoading(true);
-		console.log('Received values of form: ', values);
 		const requestObj = {
 			method: 'POST',
 			path: '/user/signup',

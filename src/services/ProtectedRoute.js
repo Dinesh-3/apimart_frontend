@@ -6,7 +6,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 		{...rest}
 		render={(props) => {
 			const currentUser = getUser();
-      console.log({currentUser});
 			if (currentUser === false) {
 				return <Redirect to={{ pathname: '/login', state: { from: props.location } }} />;
 			} else return <Component {...props} />;

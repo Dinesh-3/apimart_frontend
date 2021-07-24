@@ -13,7 +13,6 @@ const Login = () => {
 
 	const onFinish = async (values) => {
     setIsLoading(true);
-		console.log('Received values of form: ', values);
     await login(values);
     setIsLoading(false)
 	};

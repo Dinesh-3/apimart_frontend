@@ -67,7 +67,7 @@ const Login = () => {
 						htmlType='submit'
 						className='login-form-button'
 					>
-						Log in
+						LOG IN
 					</Button>
 				</Form.Item>
 				<div>

@@ -19,7 +19,7 @@ axios.interceptors.response.use(
 		return Promise.resolve(response);
 	},
 	function (error) {
-		if (error?.response?.data?.status === 401) logout();
+		if (error?.response?.data?.status === 403) logout();
 		return Promise.reject(error);
 	}
 );

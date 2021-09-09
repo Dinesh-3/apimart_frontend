@@ -29,9 +29,9 @@ function Home() {
 			};
 
       const response = await HttpRequest(requestObj);
-      if(response.status === true) {
-        setTable(response.data);
-      }
+
+      if(response.status === true) setTable(response.data);
+      
       setTableLoading(false);
     }
     getTableRequest();

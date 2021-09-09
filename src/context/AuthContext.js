@@ -52,7 +52,7 @@ const AuthProvider = (props) => {
 			history.push('/');
 			return;
 		}
-    message.error("Invalid Credentials Try again")
+    // message.error("Invalid Credentials Try again")
 	};
 
 	const logout = () => {

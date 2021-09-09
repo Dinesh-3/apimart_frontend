@@ -4,6 +4,7 @@ import { useState } from 'react';
 import axios from "../../services/AxiosConfig";
 
 import "./UploadFile.css";
+import { FILE_UPLOAD_SIZE } from '../../services/Constant';
 
 const FileUpload = (props) => {
   const { setTableForUpload } = props;
@@ -26,7 +27,7 @@ const FileUpload = (props) => {
       setTableForUpload(record);
       message.success("File Uploaded Successfully")
     } catch (error) {
-      message.error("Failed to Upload File")
+      message.error(error.message)
     } finally {
       setFileList([]);
       setUploading(false);
@@ -41,13 +42,11 @@ const FileUpload = (props) => {
 						setFileList([]);
 					}}
 					beforeUpload={(file) => {
-						const isLt2M = file.size / 1024 / 1024 < 10;
+						const isLt2M = file.size / 1024 / 1024 < FILE_UPLOAD_SIZE;
 						if (!isLt2M) {
-							message.error('Document must smaller than 10MB!');
-							return isLt2M;
+							return message.error(`Document must smaller than ${FILE_UPLOAD_SIZE}MB!`);
 						}
 						setFileList([file]);
-						return false;
 					}}
 					fileList={fileList}
 					maxCount={1}

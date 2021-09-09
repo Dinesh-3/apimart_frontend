@@ -1,4 +1,5 @@
 import axios from './AxiosConfig';
+import { message } from 'antd';
 
 const HttpRequest = async ({ path = '', body = {}, query, headers = {}, method = 'GET' }) => {
 	try {
@@ -14,9 +15,11 @@ const HttpRequest = async ({ path = '', body = {}, query, headers = {}, method =
 		const responseData = response['data'];
 		return responseData;
 	} catch (error) {
+    const content =  error.response?.data?.message || error.message || 'Internal Server Error, Please try again';
+    message.error(content);
 		return {
 			status: false,
-			message: error.response?.data?.message || 'Internal Server Error, Please try again',
+			message: content,
 			status_code: error.response?.data?.status || 500,
 		};
 	}

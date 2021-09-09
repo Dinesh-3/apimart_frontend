@@ -21,7 +21,7 @@ const Signup = () => {
 		};
 		const response = await HttpRequest(requestObj);
 		setIsLoading(false);
-		if (response.status === false) return message.error(response.message);
+		if (response.status === false) return;
     message.success(response.message);
 		history.push('/login');
 	};

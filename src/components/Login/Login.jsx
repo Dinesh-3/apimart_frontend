@@ -1,54 +1,55 @@
-import { Form, Input, Button, Checkbox, Card } from 'antd';
-import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
+import { Form, Input, Button, Checkbox, Card } from "antd";
+import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 
 import "./Login.css";
-import { useAuth } from '../../context/AuthContext';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useAuth } from "../../context/AuthContext";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Login = () => {
-
-  const { login } = useAuth();
-  const [ isLoading, setIsLoading ] = useState(false);
+	const { login } = useAuth();
+	const [isLoading, setIsLoading] = useState(false);
 
 	const onFinish = async (values) => {
-    setIsLoading(true);
-    await login(values);
-    setIsLoading(false)
+		setIsLoading(true);
+		await login(values);
+		setIsLoading(false);
 	};
 
 	return (
-		<Card className='form-container'>
-			<Form name='normal_login' className='login-form' onFinish={onFinish}>
+		<Card className="form-container">
+			<Form name="normal_login" className="login-form" onFinish={onFinish}>
 				<Form.Item
-					name='email'
+					name="email"
 					rules={[
 						{
-							type: 'email',
-							message: 'The input is not valid E-mail!',
+							type: "email",
+							message: "The input is not valid E-mail!",
 						},
 						{
 							required: true,
-							message: 'Please input your E-mail!',
+							message: "Please input your E-mail!",
 						},
 					]}
+					style={{ width: "100%", height: "100%" }}
 				>
-					<Input prefix={<MailOutlined />} placeholder='Email' size='large' />
+					<Input prefix={<MailOutlined />} placeholder="Email" size="large" />
 				</Form.Item>
 				<Form.Item
-					name='password'
+					name="password"
 					rules={[
 						{
 							required: true,
-							message: 'Please input your Password!',
+							message: "Please input your Password!",
 						},
 						{
-							pattern: '^.{5,}',
-							message: 'Minimum 5 characters required',
+							pattern: "^.{5,}",
+							message: "Minimum 5 characters required",
 						},
 					]}
+					style={{ width: "100%", height: "100%" }}
 				>
-					<Input.Password prefix={<LockOutlined className='site-form-item-icon' size='large' />} />
+					<Input type="password" placeholder="Password" size="large" prefix={<LockOutlined />} />
 				</Form.Item>
 				{/* <Form.Item>
 					<Form.Item name='remember' valuePropName='checked' noStyle>
@@ -63,16 +64,15 @@ const Login = () => {
 				<Form.Item>
 					<Button
 						loading={isLoading}
-						type='primary'
-						htmlType='submit'
-						className='login-form-button'
+						type="primary"
+						htmlType="submit"
+						className="login-form-button"
 					>
 						LOG IN
 					</Button>
 				</Form.Item>
 				<div>
-          Don't have an account ? 
-					<Link to='/signup'> Signup</Link>
+					Don't have an account ?<Link to="/signup"> Signup</Link>
 				</div>
 			</Form>
 		</Card>

@@ -15,7 +15,7 @@ import history from "./services/history";
 import Login from "./components/Login/Login";
 import SignUp from "./components/SignUp/SignUp";
 import Home from "./components/Home/home";
-import { PrivateRoute } from "./services/ProtectedRoute";
+import { PrivateRoute, ProtectFromLoggedInUser } from "./services/ProtectedRoute";
 import Document from "./components/Document/Document";
 // import ForgotPassword from "./customer/Pages/ForgotPassword/ForgotPassword";
 // import ResetPassword from "./customer/Pages/ResetPassword/ResetPassword";
@@ -26,8 +26,8 @@ function App() {
 			<Router history={history}>
 				<Switch>
 					<PrivateRoute path='/' exact component={Home} />
-					<Route path='/signup' exact component={SignUp} />
-					<Route path='/login' exact component={Login} />
+					<ProtectFromLoggedInUser path='/signup' exact component={SignUp} />
+					<ProtectFromLoggedInUser path='/login' exact component={Login} />
 					<Route path='/docs' exact component={Document} />
 
 					{/* <Route path="/ForgotPassword" component={ForgotPassword} />

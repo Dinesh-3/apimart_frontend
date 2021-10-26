@@ -13,6 +13,7 @@ const HttpRequest = async ({ path = '', body = {}, query, headers = {}, method =
 			},
 		});
 		const responseData = response['data'];
+    if(responseData.status === false) message.error(content);
 		return responseData;
 	} catch (error) {
     const content =  error.response?.data?.message || error.message || 'Internal Server Error, Please try again';

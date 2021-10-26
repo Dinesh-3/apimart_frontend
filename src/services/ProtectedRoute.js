@@ -12,4 +12,17 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 		}}
 	/>
 );
-export { PrivateRoute };
+
+const ProtectFromLoggedInUser = ({ component: Component, ...rest }) => (
+    <Route
+        {...rest}
+        render={(props) => {
+            const currentUser = getUser();
+            if (currentUser) {
+                return <Redirect to={{ pathname: "/", state: { from: props.location } }} />;
+            } else return <Component {...props} />;
+        }}
+    />
+);
+
+export { PrivateRoute, ProtectFromLoggedInUser };

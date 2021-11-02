@@ -26,10 +26,10 @@ const ApiTable = (props) => {
 
 
   const handleFileDownload = async (index, fileName) => {
-    
+
 		setLoading((prev) => ({ ...prev, [index]: true }));
     try {
-      const response = await axios.get(`/collection/download/${fileName}`, { responseType: "blob", params: {type: fileTypes[index]} });
+      const response = await axios.get(`/collection/download/${fileName}`, { responseType: "blob", params: {} });
       fileDownload(response.data, `${fileName}.${fileTypes[index]}`);
       
     } catch (error) {

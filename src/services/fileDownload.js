@@ -1,6 +1,7 @@
 module.exports = function (data, filename, mime, bom) {
 	var blobData = typeof bom !== "undefined" ? [bom, data] : [data];
 	var blob = new Blob(blobData, { type: mime || "application/octet-stream" });
+  console.log({filename,data, mime, bom});
 	if (typeof window.navigator.msSaveBlob !== "undefined") {
 		// IE workaround for "HTML7007: One or more blob URLs were
 		// revoked by closing the blob for which they were created.

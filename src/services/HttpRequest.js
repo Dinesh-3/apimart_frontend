@@ -12,6 +12,7 @@ const HttpRequest = async ({ path = '', body = {}, query, headers = {}, method =
 				...headers,
 			},
 		});
+
 		const responseData = response['data'];
     if(responseData.status === false) message.error(responseData.message);
 		return responseData;

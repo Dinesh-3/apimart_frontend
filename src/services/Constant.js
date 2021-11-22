@@ -5,4 +5,11 @@ const API_ENDPOINT =
 
 const FILE_UPLOAD_SIZE = 5;
 
-export { API_ENDPOINT, FILE_UPLOAD_SIZE };
+const SUPPORTED_TYPES = [
+	{ name: 'CSV', value: 'csv' },
+	{ name: 'XLS', value: 'xls' },
+	{ name: 'XLSX', value: 'xlsx' },
+	{ name: 'JSON', value: 'json' },
+];
+
+export { API_ENDPOINT, FILE_UPLOAD_SIZE, SUPPORTED_TYPES };

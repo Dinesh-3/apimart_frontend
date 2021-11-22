@@ -25,7 +25,6 @@ function Home() {
       setTableLoading(true);
       const requestObj = {
 				path: '/collection',
-				method: 'GET',
 			};
 
       const response = await HttpRequest(requestObj);

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import axios from "../../services/AxiosConfig";
 
 import "./UploadFile.css";
-import { FILE_UPLOAD_SIZE } from '../../services/Constant';
+import { FILE_UPLOAD_SIZE, SUPPORTED_TYPES } from '../../services/Constant';
 
 const FileUpload = (props) => {
   const { setTableForUpload } = props;
@@ -50,7 +50,7 @@ const FileUpload = (props) => {
 					}}
 					fileList={fileList}
 					maxCount={1}
-					accept='.csv,.xlsx,.xls'
+					accept={SUPPORTED_TYPES.map(({ value }) => `.${value}`).join()}
 					disabled={uploading}
 				>
 					<Button icon={<UploadOutlined />}>Select File</Button>
